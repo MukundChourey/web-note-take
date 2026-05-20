@@ -1,0 +1,66 @@
+/* AuraNotes Injected Webpage Stylesheet (Minimal Footprint) */
+
+/* Styling variables scope */
+:root {
+  --an-accent-indigo: #6366f1;
+  --an-accent-purple: #a855f7;
+  --an-font: -apple-system, BlinkMacSystemFont, "Outfit", "Segoe UI", Roboto, sans-serif;
+}
+
+/* Hover Highlighter overlay in parent DOM page */
+.auranotes-highlighter {
+  position: absolute;
+  pointer-events: none;
+  border: 2px solid var(--an-accent-indigo);
+  border-radius: 6px;
+  background-color: rgba(99, 102, 241, 0.07);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.3), inset 0 0 6px rgba(99, 102, 241, 0.1);
+  z-index: 2147483640;
+  transition: all 0.1s ease-out;
+}
+
+/* Circular Pulsating Pins in parent DOM page */
+.auranotes-pin {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--an-accent-indigo), var(--an-accent-purple));
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 8px rgba(99, 102, 241, 0.5);
+  cursor: pointer;
+  z-index: 2147483641;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: var(--an-font);
+  font-size: 11px;
+  font-weight: 700;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.auranotes-pin:hover {
+  transform: scale(1.2) rotate(5deg);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 12px rgba(168, 85, 247, 0.7);
+}
+
+.auranotes-pin::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--an-accent-indigo);
+  opacity: 0;
+  animation: auranotes-pulse 2s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes auranotes-pulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}

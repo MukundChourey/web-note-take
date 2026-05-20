@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraNotes Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="panel-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 11.5C21 16.1944 16.9706 20 12 20C10.518 20 9.12485 19.6544 7.89805 19.0463L3 20.5L4.32885 16.0427C3.48916 14.769 3 13.2107 3 11.5C3 6.80558 7.02944 3 12 3C16.9706 3 21 6.80558 21 11.5Z" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logo-grad" x1="3" y1="3" x2="21" y2="20" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1"/>
+              <stop offset="1" stop-color="#a855f7"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-text">AuraNotes</span>
+      </div>
+      <span class="status-badge" id="page-status">Syncing</span>
+    </header>
+
+    <!-- Tab Navigation Switches -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="tab-pins">Element Pins</button>
+      <button class="tab-btn" id="tab-journal">Page Journal</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="panel-content">
+      
+      <!-- Tab 1 Content: Element Pins Pane -->
+      <div class="pane" id="pane-pins">
+        <!-- Inspector Toggle Card -->
+        <div class="control-card">
+          <div class="control-info">
+            <h3 class="control-title">Element Inspector</h3>
+            <p class="control-desc">Hover and click on webpage elements to anchor notes.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="inspector-toggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Tab 2 Content: Page Journal Pane (hidden initially) -->
+      <div class="pane hidden" id="pane-journal">
+        <button class="add-page-note-btn" id="add-page-note-btn">
+          <svg class="add-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>Add Page Journal Note</span>
+        </button>
+      </div>
+
+      <!-- Shared Search Bar -->
+      <div class="search-bar-container" id="search-bar-wrapper">
+        <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search pins on this page...">
+      </div>
+
+      <!-- Shared List and Editor Workspace Container -->
+      <div class="list-section" id="list-section-wrapper">
+        <div class="section-header">
+          <h4 class="section-title" id="section-title-label">Page Pins</h4>
+          <span class="pins-count" id="pins-counter">0 items</span>
+        </div>
+        
+        <!-- Scroll list wrapper -->
+        <div class="pins-list-wrapper" id="pins-list">
+          <!-- Populated dynamically in JS -->
+        </div>
+      </div>
+
+      <!-- Editor Mount Frame (hidden initially) -->
+      <div class="editor-mount hidden" id="editor-pane">
+        <!-- Populated dynamically when editing -->
+      </div>
+
+    </div>
+  </div>
+  <script src="storage-utils.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>
