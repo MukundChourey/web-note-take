@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     isEditing = false;
     restoreListView();
+    loadPageData();
   });
 
   tabJournal.addEventListener("click", () => {
@@ -160,6 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     isEditing = false;
     restoreListView();
+    loadPageData();
   });
 
   // --- 4. ELEMENT INSPECTOR TOGGLERS ---
@@ -253,14 +255,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const header = document.createElement("div");
       header.className = "pin-item-header";
 
-      const idxBadge = document.createElement("span");
-      idxBadge.className = "pin-item-index";
-      idxBadge.textContent = (index + 1).toString();
-      header.appendChild(idxBadge);
-
       const title = document.createElement("h4");
       title.className = "pin-item-title";
       title.textContent = item.title;
+
+      if (activeTabMode === "pins") {
+        const idxBadge = document.createElement("span");
+        idxBadge.className = "pin-item-index";
+        idxBadge.textContent = (index + 1).toString();
+        header.appendChild(idxBadge);
+      } else {
+        title.style.marginLeft = "0px";
+      }
+
       header.appendChild(title);
       
       card.appendChild(header);
