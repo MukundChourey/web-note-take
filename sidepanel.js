@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchInput) searchInput.value = "";
     
     try {
-      const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+      const tabs = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
       if (tabs && tabs.length > 0) {
         activeTab = tabs[0];
         activeTabUrl = activeTab.url || "";
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    if (changeInfo.url && tab.active) {
+    if (changeInfo.status === 'complete' && tab.active) {
       await initTabContext();
     }
   });
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- 2. MESSAGE BRIDGE FROM LIGHTWEIGHT CONTENT SCRIPTS ---
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Ensure the message is coming from the active tab we are inspecting
-    if (!activeTab || sender.tab.id !== activeTab.id) return;
+    if (!activeTab || !sender.tab || sender.tab.id !== activeTab.id) return;
 
     switch (message.action) {
       case "ELEMENT_SELECTED":
@@ -619,6 +619,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchInput) searchInput.disabled = true;
     tabPins.disabled = true;
     tabJournal.disabled = true;
+    
+    if (pageStatus) pageStatus.textContent = "Disabled";
     
     pinsList.replaceChildren();
     pinsCounter.textContent = "0 items";
